@@ -66,6 +66,7 @@ internal static class Program {
 			Console.Clear();
 
 			Console.WriteLine("Вы находитесь в чат-комнате.");
+			Console.WriteLine($" * Ваше имя: {client.UserName}.");
 			Console.WriteLine($" * {message}");
 			Console.WriteLine($" * ID комнаты: {roomId}.");
 			Console.WriteLine($" * Для выхода напишите: {InputHandler.CommandPrefix}{InputHandler.CmdLeave}.");
