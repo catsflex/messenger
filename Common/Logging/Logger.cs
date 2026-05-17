@@ -3,16 +3,16 @@
 public class Logger : ILogger {
 
 	private readonly string _id;
-	private static readonly object Lock = new();
+	private static readonly object _Lock = new();
 
 	public bool ShouldShowTime { get; set; }
 	public bool ShouldShowId { get; set; }
 
-	private const ConsoleColor TimestampColor = ConsoleColor.Green;
-	private const ConsoleColor IdColor = ConsoleColor.Cyan;
-	private const ConsoleColor InfoColor = ConsoleColor.Gray;
-	private const ConsoleColor WarningColor = ConsoleColor.DarkYellow;
-	private const ConsoleColor ErrorColor = ConsoleColor.Red;
+	private const ConsoleColor _TimestampColor = ConsoleColor.Green;
+	private const ConsoleColor _IdColor = ConsoleColor.Cyan;
+	private const ConsoleColor _InfoColor = ConsoleColor.Gray;
+	private const ConsoleColor _WarningColor = ConsoleColor.DarkYellow;
+	private const ConsoleColor _ErrorColor = ConsoleColor.Red;
 
 	public Logger(string id, bool shouldShowTime = true, bool shouldShowId = true) {
 		_id = id;
@@ -21,35 +21,35 @@ public class Logger : ILogger {
 	}
 
 	public void Info(string message, bool newLine = true) {
-		Log(InfoColor, message, newLine);
+		Log(_InfoColor, message, newLine);
 	}
 
 	public void Warn(string message, bool newLine = true) {
-		Log(WarningColor, message, newLine);
+		Log(_WarningColor, message, newLine);
 	}
 
 	public void Error(string message, bool newLine = true) {
-		Log(ErrorColor, message, newLine);
+		Log(_ErrorColor, message, newLine);
 	}
 
 	public static void EmptyLine() {
-		lock (Lock) {
+		lock (_Lock) {
 			Console.WriteLine();
 		}
 	}
 
 	private void Log(ConsoleColor color, string message, bool newLine) {
-		lock (Lock) {
+		lock (_Lock) {
 
 			// Время
 			if (ShouldShowTime) {
-				Console.ForegroundColor = TimestampColor;
+				Console.ForegroundColor = _TimestampColor;
 				Console.Write($"[{DateTime.Now:HH:mm:ss.fff}] ");
 			}
 
 			// Айди
 			if (ShouldShowId) {
-				Console.ForegroundColor = IdColor;
+				Console.ForegroundColor = _IdColor;
 				Console.Write($"[{_id}] ");
 			}
 
